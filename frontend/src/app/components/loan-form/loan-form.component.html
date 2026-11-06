@@ -1,0 +1,184 @@
+<section class="card upload-section">
+  <div class="card-header">
+    <h2>📄 Bank Statement Upload & Loan Request</h2>
+    <span class="step-badge">Upload & Analyze</span>
+  </div>
+
+  <div class="form-grid">
+    <!-- File Dropzone -->
+    <div class="dropzone-column">
+      <div
+        class="dropzone"
+        [class.dropzone-error]="isSubmitted && fieldErrors['file']"
+        (dragover)="onDragOver($event)"
+        (drop)="onDrop($event)">
+        <input type="file" id="fileUpload" (change)="onFileSelected($event)" accept=".pdf,image/*" />
+        <label for="fileUpload" class="dropzone-label">
+          <div class="upload-icon">📂</div>
+          <div *ngIf="!selectedFileName">
+            <strong>Click to upload</strong> or drag & drop Bank Statement <span class="required-star">*</span>
+            <p class="small-text">PDF, PNG, JPG supported (up to 25 MB)</p>
+          </div>
+          <div *ngIf="selectedFileName" class="selected-file-pill">
+            <span class="file-name">📄 {{ selectedFileName }}</span>
+            <span class="file-change">Click to replace</span>
+          </div>
+        </label>
+      </div>
+      <div *ngIf="isSubmitted && fieldErrors['file']" class="inline-field-error dropzone-error-text">
+        ⚠️ {{ fieldErrors['file'] }}
+      </div>
+    </div>
+
+    <!-- Loan Request Inputs -->
+    <div class="inputs-container">
+      <div class="form-row three-col">
+        <div class="form-group">
+          <label for="loanAmount">Requested Loan (₹) <span class="required-star">*</span></label>
+          <input
+            id="loanAmount"
+            type="number"
+            [(ngModel)]="requestedLoanAmount"
+            (input)="onFieldChange('requestedLoanAmount')"
+            [class.input-error]="isSubmitted && fieldErrors['requestedLoanAmount']"
+            placeholder="e.g. 500000"
+            step="10000"
+            min="10000" />
+          <div *ngIf="isSubmitted && fieldErrors['requestedLoanAmount']" class="inline-field-error">
+            ⚠️ {{ fieldErrors['requestedLoanAmount'] }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="tenure">Tenure (Months) <span class="required-star">*</span></label>
+          <input
+            id="tenure"
+            type="number"
+            [(ngModel)]="tenureMonths"
+            (input)="onFieldChange('tenureMonths')"
+            [class.input-error]="isSubmitted && fieldErrors['tenureMonths']"
+            placeholder="e.g. 60"
+            step="6"
+            min="6"
+            max="360" />
+          <div *ngIf="isSubmitted && fieldErrors['tenureMonths']" class="inline-field-error">
+            ⚠️ {{ fieldErrors['tenureMonths'] }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="interestRate">Interest Rate (% p.a.) <span class="required-star">*</span></label>
+          <input
+            id="interestRate"
+            type="number"
+            [(ngModel)]="annualInterestRate"
+            (input)="onFieldChange('annualInterestRate')"
+            [class.input-error]="isSubmitted && fieldErrors['annualInterestRate']"
+            placeholder="e.g. 12.0"
+            step="0.5"
+            min="1"
+            max="50" />
+          <div *ngIf="isSubmitted && fieldErrors['annualInterestRate']" class="inline-field-error">
+            ⚠️ {{ fieldErrors['annualInterestRate'] }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Customer Information (Read & Prefilled from Statement) -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="customerName">
+            Customer Name
+            <span *ngIf="customerName" class="badge-auto-filled">✓ Read from statement</span>
+            <span *ngIf="!customerName && !isExtracting" class="optional-tag">(Auto-read from statement)</span>
+            <span *ngIf="isExtracting" class="badge-reading">⏳ Reading statement...</span>
+          </label>
+          <input
+            id="customerName"
+            type="text"
+            [(ngModel)]="customerName"
+            (input)="onFieldChange('customerName')"
+            placeholder="Auto-populated after reading statement (or enter manually)" />
+        </div>
+
+        <div class="form-group">
+          <label for="accountNumber">
+            Customer Account Number
+            <span *ngIf="accountNumber" class="badge-auto-filled">✓ Read from statement</span>
+            <span *ngIf="!accountNumber && !isExtracting" class="optional-tag">(Auto-read from statement)</span>
+            <span *ngIf="isExtracting" class="badge-reading">⏳ Reading statement...</span>
+          </label>
+          <input
+            id="accountNumber"
+            type="text"
+            [(ngModel)]="accountNumber"
+            (input)="onFieldChange('accountNumber')"
+            placeholder="Auto-populated after reading statement (or enter manually)" />
+        </div>
+      </div>
+
+      <!-- Auto Extraction Banner -->
+      <div *ngIf="extractedAlert" class="auto-extract-banner">
+        <span>✨ <strong>Statement Detected:</strong> {{ extractedAlert }}</span>
+      </div>
+
+      <!-- Actions -->
+      <div class="action-buttons">
+        <button
+          class="btn btn-primary"
+          [class.btn-progress]="isLoading"
+          (click)="onSubmit()"
+          [disabled]="isLoading">
+          <!-- Normal State -->
+          <span *ngIf="!isLoading">⚡ Analyze Statement & Evaluate Loan</span>
+
+          <!-- In-Button % Completion Bar & State -->
+          <ng-container *ngIf="isLoading">
+            <div class="btn-progress-fill" [style.width.%]="progressPercent"></div>
+            <span class="btn-progress-content">
+              <span class="btn-spinner"></span>
+              <span>Analyzing Statement: <strong>{{ progressPercent }}%</strong></span>
+            </span>
+          </ng-container>
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="onReset()"
+          [disabled]="isLoading"
+          title="Reset form fields">
+          🔄 Reset Form
+        </button>
+      </div>
+
+      <!-- Live Detailed Multi-Stage Progress Tracker -->
+      <div *ngIf="isLoading" class="progress-details-card">
+        <div class="progress-info-row">
+          <span class="progress-stage-label">
+            <span class="pulsing-dot"></span>
+            {{ progressStage || 'Processing and analyzing document...' }}
+          </span>
+          <span class="progress-percent-badge">{{ progressPercent }}%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-bar-indicator" [style.width.%]="progressPercent"></div>
+        </div>
+        <div class="progress-steps-row">
+          <span class="step-chip" [class.active]="progressPercent >= 15">1. Statement Upload</span>
+          <span class="step-chip" [class.active]="progressPercent >= 45">2. Statement Extraction</span>
+          <span class="step-chip" [class.active]="progressPercent >= 70">3. Income & EMI Analysis</span>
+          <span class="step-chip" [class.active]="progressPercent >= 90">4. Pre-Approval Policy</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="validationMessage" class="alert alert-warning">
+    ⚠️ {{ validationMessage }}
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    ❌ {{ errorMessage }}
+  </div>
+</section>

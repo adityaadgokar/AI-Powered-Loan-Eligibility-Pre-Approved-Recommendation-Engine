@@ -1,0 +1,49 @@
+<div class="app-container">
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-content">
+      <div class="brand">
+        <div class="logo-icon">🏦</div>
+        <div>
+          <h1>AI Loan Recommendation Engine</h1>
+          <p class="subtitle">AI Document Intelligence • Pre-Approved Lending Engine</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <!-- Component 1: Loan Application Form -->
+    <app-loan-form
+      [isLoading]="isLoading"
+      [progressPercent]="progressPercent"
+      [progressStage]="progressStage"
+      [errorMessage]="errorMessage"
+      [extractedCustomerName]="result?.customerName"
+      [extractedAccountNumber]="result?.accountNumber"
+      (formSubmit)="handleFormSubmit($event)">
+    </app-loan-form>
+
+    <!-- Results Section -->
+    <div *ngIf="result" class="results-wrapper">
+
+      <!-- Component 2: Hero Pre-Approved Recommendation -->
+      <app-hero-recommendation
+        [affordabilityResult]="result.affordabilityResult">
+      </app-hero-recommendation>
+
+      <!-- Component 3: Financial Metrics -->
+      <app-financial-metrics
+        [financialAnalysis]="result.financialAnalysis">
+      </app-financial-metrics>
+
+      <!-- Component 4: Transactions Table -->
+      <app-transactions-table
+        [extractedStatement]="result.extractedStatement"
+        [accountNumber]="result.accountNumber"
+        [bankName]="result.bankName">
+      </app-transactions-table>
+
+    </div>
+  </main>
+</div>

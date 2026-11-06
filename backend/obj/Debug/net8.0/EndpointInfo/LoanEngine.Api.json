@@ -1,0 +1,918 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "AI Loan Recommendation API",
+    "description": "AI-Powered Loan Eligibility & Pre-Approved Loan Recommendation Engine",
+    "version": "v1"
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "LoanEngine.Api"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/loan/pre-approval": {
+      "post": {
+        "tags": [
+          "LoanPreApproval"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "File": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "RequestedLoan": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "Tenure": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "InterestRate": {
+                    "type": "number",
+                    "format": "double"
+                  }
+                }
+              },
+              "encoding": {
+                "File": {
+                  "style": "form"
+                },
+                "RequestedLoan": {
+                  "style": "form"
+                },
+                "Tenure": {
+                  "style": "form"
+                },
+                "InterestRate": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PreApprovalAssessmentResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PreApprovalAssessmentResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PreApprovalAssessmentResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/LoanProcessing/process": {
+      "post": {
+        "tags": [
+          "LoanProcessing"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "File": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "CustomerName": {
+                    "type": "string"
+                  },
+                  "AccountNumber": {
+                    "type": "string"
+                  },
+                  "CustomerEmail": {
+                    "type": "string"
+                  },
+                  "CustomerPhone": {
+                    "type": "string"
+                  },
+                  "RequestedLoanAmount": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "TenureMonths": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "AnnualInterestRate": {
+                    "type": "number",
+                    "format": "double"
+                  }
+                }
+              },
+              "encoding": {
+                "File": {
+                  "style": "form"
+                },
+                "CustomerName": {
+                  "style": "form"
+                },
+                "AccountNumber": {
+                  "style": "form"
+                },
+                "CustomerEmail": {
+                  "style": "form"
+                },
+                "CustomerPhone": {
+                  "style": "form"
+                },
+                "RequestedLoanAmount": {
+                  "style": "form"
+                },
+                "TenureMonths": {
+                  "style": "form"
+                },
+                "AnnualInterestRate": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoanRecommendationResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoanRecommendationResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoanRecommendationResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/loan/process": {
+      "post": {
+        "tags": [
+          "LoanProcessing"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "File": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "CustomerName": {
+                    "type": "string"
+                  },
+                  "AccountNumber": {
+                    "type": "string"
+                  },
+                  "CustomerEmail": {
+                    "type": "string"
+                  },
+                  "CustomerPhone": {
+                    "type": "string"
+                  },
+                  "RequestedLoanAmount": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "TenureMonths": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "AnnualInterestRate": {
+                    "type": "number",
+                    "format": "double"
+                  }
+                }
+              },
+              "encoding": {
+                "File": {
+                  "style": "form"
+                },
+                "CustomerName": {
+                  "style": "form"
+                },
+                "AccountNumber": {
+                  "style": "form"
+                },
+                "CustomerEmail": {
+                  "style": "form"
+                },
+                "CustomerPhone": {
+                  "style": "form"
+                },
+                "RequestedLoanAmount": {
+                  "style": "form"
+                },
+                "TenureMonths": {
+                  "style": "form"
+                },
+                "AnnualInterestRate": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoanRecommendationResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoanRecommendationResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoanRecommendationResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/LoanProcessing/extract": {
+      "post": {
+        "tags": [
+          "LoanProcessing"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "File": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "File": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExtractedStatementDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExtractedStatementDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExtractedStatementDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/loan/extract": {
+      "post": {
+        "tags": [
+          "LoanProcessing"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "File": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "File": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExtractedStatementDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExtractedStatementDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExtractedStatementDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/LoanProcessing/history/{id}": {
+      "get": {
+        "tags": [
+          "LoanProcessing"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoanRecommendationResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoanRecommendationResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoanRecommendationResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/loan/history/{id}": {
+      "get": {
+        "tags": [
+          "LoanProcessing"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoanRecommendationResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoanRecommendationResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoanRecommendationResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CategorizedTransactionDto": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "debit": {
+            "type": "number",
+            "format": "double"
+          },
+          "credit": {
+            "type": "number",
+            "format": "double"
+          },
+          "balance": {
+            "type": "number",
+            "format": "double"
+          },
+          "category": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CategoryBreakdownDto": {
+        "type": "object",
+        "properties": {
+          "salary": {
+            "type": "number",
+            "format": "double"
+          },
+          "rent": {
+            "type": "number",
+            "format": "double"
+          },
+          "groceries": {
+            "type": "number",
+            "format": "double"
+          },
+          "shopping": {
+            "type": "number",
+            "format": "double"
+          },
+          "utilityBills": {
+            "type": "number",
+            "format": "double"
+          },
+          "loanEmi": {
+            "type": "number",
+            "format": "double"
+          },
+          "medicalExpenses": {
+            "type": "number",
+            "format": "double"
+          },
+          "others": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ExtractedStatementDto": {
+        "type": "object",
+        "properties": {
+          "accountHolder": {
+            "type": "string",
+            "nullable": true
+          },
+          "accountNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "bankName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statementPeriod": {
+            "$ref": "#/components/schemas/StatementPeriodDto"
+          },
+          "openingBalance": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "closingBalance": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "transactions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExtractedTransactionDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ExtractedTransactionDto": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "debit": {
+            "type": "number",
+            "format": "double"
+          },
+          "credit": {
+            "type": "number",
+            "format": "double"
+          },
+          "balance": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "FinancialAnalysisDto": {
+        "type": "object",
+        "properties": {
+          "monthlyVerifiedIncome": {
+            "type": "number",
+            "format": "double"
+          },
+          "monthlyExpenses": {
+            "type": "number",
+            "format": "double"
+          },
+          "existingEmis": {
+            "type": "number",
+            "format": "double"
+          },
+          "averageBalance": {
+            "type": "number",
+            "format": "double"
+          },
+          "lowestBalance": {
+            "type": "number",
+            "format": "double"
+          },
+          "monthlyDisposableIncome": {
+            "type": "number",
+            "format": "double"
+          },
+          "netCashFlow": {
+            "type": "number",
+            "format": "double"
+          },
+          "expenseRatio": {
+            "type": "number",
+            "format": "double"
+          },
+          "existingEmiBurdenRatio": {
+            "type": "number",
+            "format": "double"
+          },
+          "analyzedMonthsCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "detectedSalaryEntries": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "detectedEmiEntries": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoanAffordabilityResultDto": {
+        "type": "object",
+        "properties": {
+          "requestedAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "tenureMonths": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "annualInterestRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "monthlyInterestRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "requestedEmi": {
+            "type": "number",
+            "format": "double"
+          },
+          "existingEmis": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalEmiWithExisting": {
+            "type": "number",
+            "format": "double"
+          },
+          "disposableIncome": {
+            "type": "number",
+            "format": "double"
+          },
+          "remainingMonthlyIncomeAfterAllEmis": {
+            "type": "number",
+            "format": "double"
+          },
+          "policyMaxFoirPercentage": {
+            "type": "number",
+            "format": "double"
+          },
+          "maxAllowedTotalEmi": {
+            "type": "number",
+            "format": "double"
+          },
+          "availableEmiCapacity": {
+            "type": "number",
+            "format": "double"
+          },
+          "maxEligibleLoanAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "suggestedPreApprovedAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "isRequestedLoanAffordable": {
+            "type": "boolean"
+          },
+          "actualFoirPercentage": {
+            "type": "number",
+            "format": "double"
+          },
+          "recommendationExplanation": {
+            "type": "string",
+            "nullable": true
+          },
+          "eligibilityStatus": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoanRecommendationResponseDto": {
+        "type": "object",
+        "properties": {
+          "applicationId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "customerId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "customerName": {
+            "type": "string",
+            "nullable": true
+          },
+          "accountNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "bankName": {
+            "type": "string",
+            "nullable": true
+          },
+          "extractedStatement": {
+            "$ref": "#/components/schemas/ExtractedStatementDto"
+          },
+          "financialAnalysis": {
+            "$ref": "#/components/schemas/FinancialAnalysisDto"
+          },
+          "affordabilityResult": {
+            "$ref": "#/components/schemas/LoanAffordabilityResultDto"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PreApprovalAssessmentResponseDto": {
+        "type": "object",
+        "properties": {
+          "customerName": {
+            "type": "string",
+            "nullable": true
+          },
+          "accountNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "approvedAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "preApprovedPotentialOffer": {
+            "type": "number",
+            "format": "double"
+          },
+          "monthlyIncome": {
+            "type": "number",
+            "format": "double"
+          },
+          "monthlyDisposableIncome": {
+            "type": "number",
+            "format": "double"
+          },
+          "monthlyEmiCanPay": {
+            "type": "number",
+            "format": "double"
+          },
+          "requestedLoan": {
+            "type": "number",
+            "format": "double"
+          },
+          "tenure": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "interestRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "monthlyEmi": {
+            "type": "number",
+            "format": "double"
+          },
+          "fixedDeduction": {
+            "type": "number",
+            "format": "double"
+          },
+          "variableDeduction": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalCredit": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalDebit": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalAvailableBalance": {
+            "type": "number",
+            "format": "double"
+          },
+          "categoryBreakdown": {
+            "$ref": "#/components/schemas/CategoryBreakdownDto"
+          },
+          "categorizedTransactions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CategorizedTransactionDto"
+            },
+            "nullable": true
+          },
+          "remarks": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": { }
+      },
+      "StatementPeriodDto": {
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "nullable": true
+          },
+          "endDate": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

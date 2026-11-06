@@ -1,0 +1,50 @@
+@HostAddress = http://localhost:5000
+
+### 1. New Lightweight Pre-Approval Endpoint (For External App Integration)
+# Accepts document file, requested loan, tenure, interest rate.
+# Returns ONLY decision status, approved amount, pre-approved potential offer,
+# monthly income, monthly disposable income / EMI capacity, customer name & account number.
+POST {{HostAddress}}/api/loan/pre-approval
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="File"; filename="sample_bank_statement.pdf"
+Content-Type: application/pdf
+
+< ../sample_bank_statement.pdf
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="RequestedLoan"
+
+500000
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="Tenure"
+
+36
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="InterestRate"
+
+10.5
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+### 2. Full Application Process Endpoint (Original Existing Endpoint - Unmodified)
+POST {{HostAddress}}/api/loan/process
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="File"; filename="sample_bank_statement.pdf"
+Content-Type: application/pdf
+
+< ../sample_bank_statement.pdf
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="RequestedLoanAmount"
+
+500000
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="TenureMonths"
+
+36
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="AnnualInterestRate"
+
+10.5
+------WebKitFormBoundary7MA4YWxkTrZu0gW--

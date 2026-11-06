@@ -1,0 +1,36 @@
+<section *ngIf="financialAnalysis" class="metrics-grid">
+  <div class="metric-card">
+    <span class="metric-icon">💰</span>
+    <span class="metric-title">Monthly Income</span>
+    <span class="metric-value text-green">₹{{ financialAnalysis.monthlyVerifiedIncome | number:'1.0-0' }}</span>
+    <span class="metric-sub">Verified recurring salary credits</span>
+  </div>
+
+  <div class="metric-card">
+    <span class="metric-icon">🛒</span>
+    <span class="metric-title">Monthly Living Expenses</span>
+    <span class="metric-value text-muted">₹{{ financialAnalysis.monthlyExpenses | number:'1.0-0' }}</span>
+    <span class="metric-sub">{{ financialAnalysis.expenseRatio }}% of income</span>
+  </div>
+
+  <div class="metric-card">
+    <span class="metric-icon">💳</span>
+    <span class="metric-title">Existing EMIs</span>
+    <span class="metric-value text-warning">₹{{ financialAnalysis.existingEmis | number:'1.0-0' }}</span>
+    <span class="metric-sub">{{ financialAnalysis.existingEmiBurdenRatio }}% debt burden</span>
+  </div>
+
+  <div class="metric-card">
+    <span class="metric-icon">🏦</span>
+    <span class="metric-title">Average Bank Balance</span>
+    <span class="metric-value">₹{{ financialAnalysis.averageBalance | number:'1.0-0' }}</span>
+    <span class="metric-sub">Lowest: ₹{{ financialAnalysis.lowestBalance | number:'1.0-0' }}</span>
+  </div>
+
+  <div class="metric-card highlight-card">
+    <span class="metric-icon">✨</span>
+    <span class="metric-title">Monthly Disposable Income</span>
+    <span class="metric-value text-primary">₹{{ financialAnalysis.monthlyDisposableIncome | number:'1.0-0' }}</span>
+    <span class="metric-sub">Income - Expenses - Existing EMIs</span>
+  </div>
+</section>

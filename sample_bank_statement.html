@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Bank Statement - HDFC Bank Ltd</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; color: #333; }
+    .header { border-bottom: 2px solid #004c8f; padding-bottom: 15px; margin-bottom: 25px; }
+    .bank-name { font-size: 24px; font-weight: bold; color: #004c8f; }
+    .statement-title { font-size: 16px; margin-top: 5px; color: #666; }
+    .account-info { display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 14px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 13px; }
+    th { background: #004c8f; color: white; padding: 10px; text-align: left; }
+    td { padding: 9px 10px; border-bottom: 1px solid #ddd; }
+    .text-right { text-align: right; }
+    .summary-box { background: #f4f8fb; border: 1px solid #cce2f2; padding: 15px; border-radius: 6px; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="bank-name">HDFC BANK LIMITED</div>
+    <div class="statement-title">ACCOUNT STATEMENT FOR SAVINGS ACCOUNT</div>
+  </div>
+
+  <div class="account-info">
+    <div>
+      <strong>Account Holder:</strong> Rahul Sharma<br>
+      <strong>Account Number:</strong> XXXX1234<br>
+      <strong>Branch:</strong> Mumbai Nariman Point Branch<br>
+      <strong>IFSC:</strong> HDFC0000123
+    </div>
+    <div style="text-align: right;">
+      <strong>Statement Period:</strong> 01-Jan-2026 to 31-Mar-2026<br>
+      <strong>Opening Balance:</strong> ₹ 35,000.00<br>
+      <strong>Closing Balance:</strong> ₹ 80,000.00
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Description</th>
+        <th class="text-right">Debit (₹)</th>
+        <th class="text-right">Credit (₹)</th>
+        <th class="text-right">Balance (₹)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>2026-01-01</td><td>SALARY CREDIT - ACME TECH LTD</td><td class="text-right">-</td><td class="text-right">75,000.00</td><td class="text-right">110,000.00</td></tr>
+      <tr><td>2026-01-03</td><td>RENT PAYMENT TO LANDLORD</td><td class="text-right">15,000.00</td><td class="text-right">-</td><td class="text-right">95,000.00</td></tr>
+      <tr><td>2026-01-05</td><td>PERSONAL LOAN EMI - HDFC</td><td class="text-right">10,000.00</td><td class="text-right">-</td><td class="text-right">85,000.00</td></tr>
+      <tr><td>2026-01-10</td><td>GROCERIES & SUPERMARKET</td><td class="text-right">6,000.00</td><td class="text-right">-</td><td class="text-right">79,000.00</td></tr>
+      <tr><td>2026-01-18</td><td>ELECTRICITY & UTILITY BILLS</td><td class="text-right">4,000.00</td><td class="text-right">-</td><td class="text-right">75,000.00</td></tr>
+
+      <tr><td>2026-02-01</td><td>SALARY CREDIT - ACME TECH LTD</td><td class="text-right">-</td><td class="text-right">75,000.00</td><td class="text-right">150,000.00</td></tr>
+      <tr><td>2026-02-03</td><td>RENT PAYMENT TO LANDLORD</td><td class="text-right">15,000.00</td><td class="text-right">-</td><td class="text-right">135,000.00</td></tr>
+      <tr><td>2026-02-05</td><td>PERSONAL LOAN EMI - HDFC</td><td class="text-right">10,000.00</td><td class="text-right">-</td><td class="text-right">125,000.00</td></tr>
+      <tr><td>2026-02-12</td><td>GROCERIES & SHOPPING</td><td class="text-right">7,000.00</td><td class="text-right">-</td><td class="text-right">118,000.00</td></tr>
+      <tr><td>2026-02-20</td><td>UTILITY & WIFI BILLS</td><td class="text-right">3,000.00</td><td class="text-right">-</td><td class="text-right">115,000.00</td></tr>
+
+      <tr><td>2026-03-01</td><td>SALARY CREDIT - ACME TECH LTD</td><td class="text-right">-</td><td class="text-right">75,000.00</td><td class="text-right">190,000.00</td></tr>
+      <tr><td>2026-03-03</td><td>RENT PAYMENT TO LANDLORD</td><td class="text-right">15,000.00</td><td class="text-right">-</td><td class="text-right">175,000.00</td></tr>
+      <tr><td>2026-03-05</td><td>PERSONAL LOAN EMI - HDFC</td><td class="text-right">10,000.00</td><td class="text-right">-</td><td class="text-right">165,000.00</td></tr>
+      <tr><td>2026-03-15</td><td>GROCERIES & DINING OUT</td><td class="text-right">5,000.00</td><td class="text-right">-</td><td class="text-right">160,000.00</td></tr>
+      <tr><td>2026-03-25</td><td>MUTUAL FUND SIP DEBIT</td><td class="text-right">80,000.00</td><td class="text-right">-</td><td class="text-right">80,000.00</td></tr>
+    </tbody>
+  </table>
+
+  <div class="summary-box">
+    <strong>Statement Summary:</strong> Total Credits: ₹ 2,25,000.00 | Total Debits: ₹ 1,80,000.00 | Net Savings: +₹ 45,000.00
+  </div>
+</body>
+</html>

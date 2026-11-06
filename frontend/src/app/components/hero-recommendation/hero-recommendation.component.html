@@ -1,0 +1,82 @@
+<section
+  *ngIf="affordabilityResult"
+  class="card hero-recommendation"
+  [class.theme-green]="isGreaterOrEqual"
+  [class.theme-red]="!isGreaterOrEqual">
+  <div class="hero-header">
+    <div>
+      <span class="eyebrow" [class.eyebrow-green]="isGreaterOrEqual" [class.eyebrow-red]="!isGreaterOrEqual">
+        DECISION & ELIGIBILITY VERDICT
+      </span>
+      <h2>{{ affordabilityResult.eligibilityStatus }}</h2>
+    </div>
+    <div
+      class="status-pill"
+      [class.status-green]="isGreaterOrEqual"
+      [class.status-red]="!isGreaterOrEqual">
+      {{ isGreaterOrEqual ? 'PRE-APPROVED READY' : 'BELOW REQUESTED AMOUNT' }}
+    </div>
+  </div>
+
+  <div class="comparison-grid">
+    <!-- Customer Request -->
+    <div class="comparison-box requested">
+      <span class="box-label">Customer Requested</span>
+      <div class="amount">₹{{ affordabilityResult.requestedAmount | number:'1.0-0' }}</div>
+      <div class="box-details">
+        <span>Calculated EMI: <strong>₹{{ affordabilityResult.requestedEmi | number:'1.0-0' }}/mo</strong></span>
+        <span>Tenure: {{ affordabilityResult.tenureMonths }} months at {{ affordabilityResult.annualInterestRate }}%</span>
+      </div>
+    </div>
+
+    <!-- Arrow Divider -->
+    <div class="arrow-container">
+      <div class="arrow-icon" [class.arrow-green]="isGreaterOrEqual" [class.arrow-red]="!isGreaterOrEqual">
+        ➔
+      </div>
+      <span
+        class="upsell-tag"
+        [class.tag-green]="isGreaterOrEqual"
+        [class.tag-red]="!isGreaterOrEqual">
+        <ng-container *ngIf="isGreaterOrEqual">
+          +₹{{ amountDifference | number:'1.0-0' }} Potential
+        </ng-container>
+        <ng-container *ngIf="!isGreaterOrEqual">
+          -₹{{ (-amountDifference) | number:'1.0-0' }} Shortfall
+        </ng-container>
+      </span>
+    </div>
+
+    <!-- Pre-approved Offer -->
+    <div
+      class="comparison-box recommended"
+      [class.box-green]="isGreaterOrEqual"
+      [class.box-red]="!isGreaterOrEqual">
+      <span
+        class="box-label highlight"
+        [class.highlight-green]="isGreaterOrEqual"
+        [class.highlight-red]="!isGreaterOrEqual">
+        Pre-Approved Potential Offer
+      </span>
+      <div
+        class="amount highlight"
+        [class.highlight-green]="isGreaterOrEqual"
+        [class.highlight-red]="!isGreaterOrEqual">
+        ₹{{ affordabilityResult.suggestedPreApprovedAmount | number:'1.0-0' }}
+      </div>
+      <div class="box-details">
+        <span>Available Capacity: <strong>₹{{ affordabilityResult.availableEmiCapacity | number:'1.0-0' }}/mo</strong></span>
+        <span>Max FOIR Threshold: 40% (Current: {{ affordabilityResult.actualFoirPercentage }}%)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Explanation Quote -->
+  <div class="decision-quote">
+    <div class="quote-icon">💬</div>
+    <div class="quote-body">
+      <strong>Credit Engine Explanation:</strong>
+      <p>{{ affordabilityResult.recommendationExplanation }}</p>
+    </div>
+  </div>
+</section>
